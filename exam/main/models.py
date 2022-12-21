@@ -14,15 +14,8 @@ class Service(models.Model):
     def get_name_file(instance, filename):
         return '/'.join([get_random_string(length=5) + '_' + filename])
 
-    def validate_image_size(img):
-        filesize = img.file.size
-        megabyte_max = 2.0
-        if filesize > megabyte_max * 1024 * 1024:
-            raise ValidationError("Максимальный размер %sMB" % str(megabyte_max))
-
     image = models.ImageField(verbose_name='Картинка', upload_to=get_name_file, blank=False,
-                              validators=[FileExtensionValidator(allowed_extensions=['png', 'jpg', 'jpeg']),
-                                          validate_image_size])
+                              validators=[FileExtensionValidator(allowed_extensions=['png', 'jpg', 'jpeg'])])
 
     def __str__(self):
         return str(self.name)

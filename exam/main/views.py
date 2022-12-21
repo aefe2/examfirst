@@ -1,8 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
-
 from main.forms import ServiceAddForm, LoginForm
 from main.models import Service
 
@@ -34,8 +32,6 @@ def user_login(request):
                 if user.is_active:
                     login(request, user)
                     return redirect('service_add')
-            else:
-                return HttpResponse('Invalid login')
 
     else:
         form = LoginForm()
